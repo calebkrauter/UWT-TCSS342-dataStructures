@@ -33,25 +33,30 @@ public class MySet {
         }
         return false;
     }
-    public void makeEmpty() {
 
+    public void makeEmpty() {
+        arraySizeCounter = 0;
+        array = new Object[arraySizeCounter++];
     }
+
     public int size() {
         return array.length;
     }
 
 
     public void insert(Object theObject) {
+        if (isEmpty()) {
+            myIndexCounter = 0;
+        }
         // Replace array index with counter variable.
         arraySizeCounter = myIndexCounter + 1;
         array = Arrays.copyOf(array, arraySizeCounter++);
         array[myIndexCounter] = theObject;
         myIndexCounter++;
     }
+
     public void remove(Object x) {
         for (int i = 0; i < size(); i++) {
-            // Replace == with .equals()
-
             newArray = Arrays.copyOf(array, size() - 1);
 
             // Bad item at end then cut off end.
@@ -70,8 +75,16 @@ public class MySet {
     }
 
 
-    public boolean isPresent() {
-        return false;
+    public boolean isPresent(Object x) {
+        boolean isPresent = false;
+        for (Object currentObject : array) {
+            if(currentObject.equals(x)) {
+                isPresent = true;
+            } else {
+                isPresent = false;
+            }
+        }
+        return isPresent;
     }
     public void test() {
 
@@ -95,6 +108,10 @@ public class MySet {
         // Test size() should return 7 because that is the amount of inserted objects.
         size();
         System.out.println("Size " + size());
+
+        // Test isPresent() should return true because obj3 is in the collection.
+        isPresent(obj3);
+        System.out.println("Object isPresent: " + isPresent(obj3));
 
         // Test isEmpty() should return false.
         isEmpty();
@@ -120,6 +137,19 @@ public class MySet {
 
         // Test isEmpty() should return true.
         isEmpty();
+
+        insert(obj1);
+        insert(obj2);
+        System.out.println(Arrays.toString(array));
+
+        // Test makeEmpty()
+        makeEmpty();
+        System.out.println(Arrays.toString(array));
+
+        // Test isPresent() should return false because obj3 is not in the collection.
+        isPresent(obj3);
+        System.out.println(isPresent("Object isPresent: " + obj3));
+
     }
 
 }
