@@ -9,35 +9,35 @@ public class MySet {
     private Object[] array;
     private Object[] newArray;
     private int myIndexCounter = 0;
-    private Object[] newArray2;
 
-    int myCollectionSize = 6;
-    final Integer x = 2;
-    final Integer obj1 = 1;
-    final Integer obj2 = 2;
-    final Integer obj3 = 3;
-    final Integer obj4 = 1;
-    final Integer obj5 = 2;
-    final Integer obj6 = 3;
+    final Object obj1 = 1;
+    final Object obj2 = 2;
+    final Object obj3 = 3;
+    final Object obj4 = "One";
+    final Object obj5 = "Two";
+    final Object obj6 = 3;
     int arraySizeCounter = 0;
 
     public MySet() {
 
+        // Creates array to collect objects.
         array = new Object[arraySizeCounter++];
 
-        // Creates array to collect objects.
-
+        // Function to test all methods and edge cases.
         test();
     }
 
     public boolean isEmpty() {
-        return true;
+        if (size() == 0) {
+            return true;
+        }
+        return false;
     }
     public void makeEmpty() {
 
     }
     public int size() {
-        return 0;
+        return array.length;
     }
 
 
@@ -49,45 +49,59 @@ public class MySet {
         myIndexCounter++;
     }
     public void remove(Object x) {
-        if (array.length > 2) {
-            for (int i = 0; i < array.length; i++) {
-                // Replace == with .equals()
+        for (int i = 0; i < size(); i++) {
+            // Replace == with .equals()
 
-                newArray = Arrays.copyOf(array, array.length - 1);
+            newArray = Arrays.copyOf(array, size() - 1);
 
-                // Bad item at end then cut off end.
-                if (array[i].equals(array[array.length - 1]) && array[i].equals(x)) {
+            // Bad item at end then cut off end.
+            if (array[i].equals(array[size() - 1]) && array[i].equals(x)) {
 
-                    array = newArray;
-                } else if (array[i].equals(x)) {
-                    // Swap consecutive pairs until bad item is at end and is cut off.
-                    for (int j = i + 1; array.length > j; j++) {
-                        newArray[i] = array[j];
-                        i++;
-                    }
-                    array = newArray;
+                array = newArray;
+            } else if (array[i].equals(x)) {
+                // Swap consecutive pairs until bad item is at end and is cut off.
+                for (int j = i + 1; size() > j; j++) {
+                    newArray[i] = array[j];
+                    i++;
                 }
+                array = newArray;
             }
         }
     }
+
 
     public boolean isPresent() {
         return false;
     }
     public void test() {
 
-        // Test insertion of different Objects
+        // Test size() should return 0 since no objects have been inserted.
+        size();
+        System.out.println("Size " + size());
+
+        // Test isEmpty() should return true.
+        isEmpty();
+        System.out.println(isEmpty());
+
+        // Test insertion of different Objects.
         insert(obj1);
+        insert(obj2);
         insert(obj2);
         insert(obj3);
         insert(obj4);
         insert(obj5);
         insert(obj6);
-        System.out.println("Full array " + Arrays.toString(array));
+        System.out.println("Full collection " + Arrays.toString(array));
+        // Test size() should return 7 because that is the amount of inserted objects.
+        size();
+        System.out.println("Size " + size());
+
+        // Test isEmpty() should return false.
+        isEmpty();
+        System.out.println(isEmpty());
 
         // Test removal duplicate objects.
         remove(obj2);
-        System.out.println(Arrays.toString(array));
         remove(obj2);
         System.out.println(Arrays.toString(array));
         // Test removal of first object.
@@ -96,8 +110,17 @@ public class MySet {
         // Test removal of last object.
         remove(obj3);
         System.out.println(Arrays.toString(array));
+        // Test removal of all objects.
+        remove(obj4);
+        System.out.println(Arrays.toString(array));
+        remove(obj5);
+        System.out.println(Arrays.toString(array));
+        remove(obj6);
+        System.out.println(Arrays.toString(array));
 
-}
+        // Test isEmpty() should return true.
+        isEmpty();
+    }
 
 }
 
