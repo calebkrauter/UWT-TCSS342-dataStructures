@@ -1,6 +1,4 @@
-import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Set;
 
 public class MySet {
 // stores a collection of Objects (in an array
@@ -48,6 +46,7 @@ public class MySet {
         if (isEmpty()) {
             myIndexCounter = 0;
         }
+
         // Replace array index with counter variable.
         arraySizeCounter = myIndexCounter + 1;
         array = Arrays.copyOf(array, arraySizeCounter++);
@@ -74,7 +73,6 @@ public class MySet {
         }
     }
 
-
     public boolean isPresent(Object x) {
         boolean isPresent = false;
         for (Object currentObject : array) {
@@ -86,6 +84,7 @@ public class MySet {
         }
         return isPresent;
     }
+
     public void test() {
 
         // Test size() should return 0 since no objects have been inserted.
@@ -97,6 +96,8 @@ public class MySet {
         System.out.println(isEmpty());
 
         // Test insertion of different Objects.
+        // The array automatically resizes, so it is not possible to
+        // add an object when the array is full.
         insert(obj1);
         insert(obj2);
         insert(obj2);
@@ -149,30 +150,6 @@ public class MySet {
         // Test isPresent() should return false because obj3 is not in the collection.
         isPresent(obj3);
         System.out.println(isPresent("Object isPresent: " + obj3));
-
     }
 
 }
-
-
-
-//    Write a Java class called MySet,
-//    TODO REQUIREMENTS - that stores a collection of Objects (in an array) along
-//        with the current size of the collection.
-//    TODO REQUIREMENTS - An instance of MySet should behave just like a set:
-//        to the caller of the methods, there is no order associated with the items in the
-//        MySet object.
-//    TODO REQUIREMENTS - Furthermore, there should not be two items in the MySet that are
-//        .equals() to each other as a result of any of the MySet methods.
-//
-//    TODO - Provide public methods isEmpty, makeEmpty, size, insert, remove, and
-//        isPresent.
-//    TODO REQUIREMENTS - remove(x) should remove an item from the array that is equal to x (as
-//        defined by equals).
-//    TODO REQUIREMENTS - isPresent(x) returns true if and only if an Object that is equal
-//        to x (as defined by equals) is present in the collection.
-//    TODO - Carefully think about what the
-//        parameters to the above methods are.
-//    TODO - Write a method called test that makes calls to
-//        your methods to demonstrate that they behave correctly. Be sure to test boundary
-//        cases, such as inserting an item when the array is full.
