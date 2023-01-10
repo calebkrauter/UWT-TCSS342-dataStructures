@@ -1,30 +1,83 @@
+/**
+ * @author Caleb Krauter
+ * @version 1.0
+ * January 10 2023
+ */
+
 import java.util.Arrays;
 
+/**
+ * A collection built from an
+ * array created to mimic a set containing Objects.
+ */
 public class MySet {
-// stores a collection of Objects (in an array
-// stores current size of the collection
 
+    /**
+     * An array containing Objects
+     */
     private Object[] array;
+
+    /**
+     * An array containing Objects
+     */
     private Object[] newArray;
+
+    /**
+     * An arbitrary Object.
+     */
+    private static final Object obj1 = 1;
+
+    /**
+     * An arbitrary Object.
+     */
+    private static final Object obj2 = 2;
+
+    /**
+     * An arbitrary Object.
+     */
+    private static final Object obj3 = 3;
+
+    /**
+     * An arbitrary Object.
+     */
+    private static final Object obj4 = "One";
+
+    /**
+     * An arbitrary Object.
+     */
+    private static final Object obj5 = "Two";
+
+    /**
+     * An arbitrary Object.
+     */
+    private static final Object obj6 = 3;
+
+    /**
+     * An index counter.
+     */
     private int myIndexCounter = 0;
 
-    final Object obj1 = 1;
-    final Object obj2 = 2;
-    final Object obj3 = 3;
-    final Object obj4 = "One";
-    final Object obj5 = "Two";
-    final Object obj6 = 3;
-    int arraySizeCounter = 0;
+    /**
+     * A counter.
+     */
+    private int mySecondCounter = 0;
 
+    /**
+     * A constructor for MySet
+     */
     public MySet() {
 
-        // Creates array to collect objects.
-        array = new Object[arraySizeCounter++];
+        // Creates array to collect Objects.
+        array = new Object[mySecondCounter++];
 
         // Function to test all methods and edge cases.
         test();
     }
 
+    /**
+     * Checks if the collection is empty.
+     * @return boolean.
+     */
     public boolean isEmpty() {
         if (size() == 0) {
             return true;
@@ -32,37 +85,52 @@ public class MySet {
         return false;
     }
 
+    /**
+     * Sets the collection to empty.
+     */
     public void makeEmpty() {
-        arraySizeCounter = 0;
-        array = new Object[arraySizeCounter++];
+        mySecondCounter = 0;
+        array = new Object[mySecondCounter++];
     }
 
+    /**
+     * Gets the size of the collection.
+     * @return int length of array.
+     */
     public int size() {
         return array.length;
     }
 
-
+    /**
+     * Function for inserting Objects into the collection.
+     * @param theObject
+     */
     public void insert(Object theObject) {
         if (isEmpty()) {
             myIndexCounter = 0;
         }
 
         // Replace array index with counter variable.
-        arraySizeCounter = myIndexCounter + 1;
-        array = Arrays.copyOf(array, arraySizeCounter++);
+        mySecondCounter = myIndexCounter + 1;
+        array = Arrays.copyOf(array, mySecondCounter++);
         array[myIndexCounter] = theObject;
         myIndexCounter++;
     }
 
+    /**
+     * Function for removing Objects from the collection.
+     * @param x
+     */
     public void remove(Object x) {
         for (int i = 0; i < size(); i++) {
             newArray = Arrays.copyOf(array, size() - 1);
 
-            // Bad item at end then cut off end.
+            // Bad item at end then cut off end of the array.
             if (array[i].equals(array[size() - 1]) && array[i].equals(x)) {
 
                 array = newArray;
             } else if (array[i].equals(x)) {
+
                 // Swap consecutive pairs until bad item is at end and is cut off.
                 for (int j = i + 1; size() > j; j++) {
                     newArray[i] = array[j];
@@ -73,6 +141,11 @@ public class MySet {
         }
     }
 
+    /**
+     * Checks if an object is already present in the collection.
+     * @param x
+     * @return boolean value.
+     */
     public boolean isPresent(Object x) {
         boolean isPresent = false;
         for (Object currentObject : array) {
@@ -85,9 +158,13 @@ public class MySet {
         return isPresent;
     }
 
+    /**
+     * A function that tests all methods and shares results in the console through
+     * print statements.
+     */
     public void test() {
 
-        // Test size() should return 0 since no objects have been inserted.
+        // Test size() should return 0 since no Objects have been inserted.
         size();
         System.out.println("Size " + size());
 
@@ -97,7 +174,7 @@ public class MySet {
 
         // Test insertion of different Objects.
         // The array automatically resizes, so it is not possible to
-        // add an object when the array is full.
+        // add an Object when the array is full.
         insert(obj1);
         insert(obj2);
         insert(obj2);
@@ -106,7 +183,7 @@ public class MySet {
         insert(obj5);
         insert(obj6);
         System.out.println("Full collection " + Arrays.toString(array));
-        // Test size() should return 7 because that is the amount of inserted objects.
+        // Test size() should return 7 because that is the amount of inserted Objects.
         size();
         System.out.println("Size " + size());
 
@@ -118,17 +195,17 @@ public class MySet {
         isEmpty();
         System.out.println(isEmpty());
 
-        // Test removal duplicate objects.
+        // Test removal duplicate Objects.
         remove(obj2);
         remove(obj2);
         System.out.println(Arrays.toString(array));
-        // Test removal of first object.
+        // Test removal of first Object.
         remove(obj1);
         System.out.println(Arrays.toString(array));
-        // Test removal of last object.
+        // Test removal of last Object.
         remove(obj3);
         System.out.println(Arrays.toString(array));
-        // Test removal of all objects.
+        // Test removal of all Objects.
         remove(obj4);
         System.out.println(Arrays.toString(array));
         remove(obj5);
@@ -149,7 +226,7 @@ public class MySet {
 
         // Test isPresent() should return false because obj3 is not in the collection.
         isPresent(obj3);
-        System.out.println(isPresent("Object isPresent: " + obj3));
+        System.out.println("Object isPresent: " + isPresent(obj3));
     }
 
 }
