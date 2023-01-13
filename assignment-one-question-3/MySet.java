@@ -1,27 +1,53 @@
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Set;
+import java.util.Arrays;
 
 public class MySet {
 // stores a collection of Objects (in an array
 // stores current size of the collection
 
-public boolean isEmpty() {
-    return true;
+    private int myCollectionSize;
+    private Object[] myArray;
+    private static int i = -1;
+
+    public MySet(int theCollectionSize) {
+        myCollectionSize = theCollectionSize;
+        myArray = new Object[myCollectionSize];
+
+    }
+
+
+public boolean isEmpty(boolean theBooleanValue) {
+    return theBooleanValue;
 }
 public void makeEmpty() {
-
+    myArray = new Object[0];
+    isEmpty(true);
 }
 public int size() {
-    return 0;
+    return myCollectionSize;
 }
 public void insert() {
+    i++;
+    myArray.getClass()
+}
+public void remove(Object x) {
+    myArray = Arrays.stream(myArray).filter(Object -> myArray.getClass().equals(x)).toArray();
 
 }
-public void remove() {
 
-}
+/*
+i = -1
+i++
+if obj at i equals x
+    return new array containing size-1 not including currentObject at the current index// perhaps use a stream
+else return array
+ */
+
+/*
+   old array[1,3,2,6]
+   found x = 3
+   new array[]
+ */
+
 public boolean isPresent() {
     return false;
 }
