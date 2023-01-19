@@ -11,12 +11,8 @@
  */
 public class CalculateOctalDigitSum {
     public static void main(String[] args) {
-        // Use any positive integer. I use 66 here.
-        int decimal = 512;
-        // Initialize the sum to 0 for accurate calculations.
-        //int sum = 0;
-        //octalDigitSum(decimal);
-        System.out.println(octalDigitSum(decimal));
+        octalDigitSum(66);
+        System.out.println(octalDigitSum(66));
     }
 
     /**
@@ -25,56 +21,15 @@ public class CalculateOctalDigitSum {
      * to form the "octal digit sum". If the digits are in the correct order they can
      * form a string of digits representing an octal number which is not done in this method.
      * @param n input value representing a base 10 decimal value.
-     // * @param sum input sum initialized at 0 that adds the sum in each call to the function
-     *            giving the result.
-     * @return the sum of the octal digits that in the right order form the octal converted value for n.
+     * @return the sum of the octal digits.
      */
     private static int octalDigitSum(int n) {
-        int sum = 0;
-        if (n > 0) {
-            sum = n % 8;
-            return sum +=octalDigitSum(n/8);
-        }
-        return sum;
-       // int sum = 0;
-//        int callCounter = 0;
-//        // Divide n by 8 to get a quotient for the next division.
-//        int quotient = n / 8;
-//
-//        // Get the remainder of the current input value divided by 8.
-//        int remainder = n % 8;
-//
-//        // Add the remainder to our sum to get our octal digit sum.
-////        if (callCounter == 0) {
-//           // int sum = 0;
-////        } else {
-//            //sum += remainder;
-////        }
-//        // Base case, if our quotient is 0 we will return the sum,
-//        // if the quotient is greater than 0, call octalDigitSum and
-//        // pass the current quotient and the current sum.
-//        if (quotient > 0) {
-//            callCounter++;
-//            return octalDigitSum(quotient);
-//        }
-//        return ;
-    }
+        // (During recursive calls), find the remainder and add it to the call
+        // on octalDigitSum with n / 8 passed in for n.
+        // The recursion will cause an unravelling effect
+        // adding the remainders together after the base case is hit.
+        // I wrote this in one line to clean up code and I
+        // have no variable assignments making for more efficient code.
+        return (n == 0) ? 0 : (n % 8 + octalDigitSum(n / 8));
+   }
 }
-
-// Idea one: return an unraveling addition of the remainders
-// Idea two, find a way to initialize the sum during only the first pass.
-
-// pass in 14
-//    private static int octalDigitSum(int n) { //pass 1; n = 14 // pass 2 n = 6
-//        int quotient = n / 8; // Q = 1 // Q = 0
-//        int remainder = n % 8; // R = 6 // R = 1
-//        if (quotient > 0) { // True // False
-//            return octalDigitSum(quotient); // Send Q = 6
-//        }
-//        return sum of R;
-//    }
-//
-//
-// pass in 14
-//    private static int octalDigitSum(int n) { //pass 1; n = 14 // pass 2 n = 6
-//          return sum +=octalDigitSum(n)
