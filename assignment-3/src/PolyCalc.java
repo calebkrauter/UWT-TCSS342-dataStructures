@@ -39,14 +39,14 @@ public class PolyCalc {
            The output will appear on the terminal window.
         */
 //        /*
-//        Polynomial a = new Polynomial();
-//
-//        a.zeroPolynomial();
-//        System.out.println ( "a = " + a.print() );
-//        a.insertTerm(-3, 5);
-//        System.out.println ( "a = " + a.print() );
-//        a.insertTerm(2, 1);
-//        System.out.println ( "a = " + a.print() );
+        Polynomial a = new Polynomial();
+
+        a.zeroPolynomial();
+        System.out.println ( "a = " + a.print() );
+        a.insertTerm(-3, 5);
+        System.out.println ( "a = " + a.print() );
+        a.insertTerm(2, 1);
+        System.out.println ( "a = " + a.print() );
 //        */
 
         new PolyCalc();

@@ -1,7 +1,7 @@
 public class Polynomial {
     // Fields
     private LinkedList terms;
-
+//    private Polynomial p = ;
 
     // Constructors
     public Polynomial() {
@@ -9,9 +9,15 @@ public class Polynomial {
     }
 
     // Methods
-    public void insertTerm(int coefficient, int exponent) {
 
+
+    public void insertTerm(int coefficient, int exponent) {
+//        Literal literal = new Literal();
+//        literal.setCoefficient(coefficient);
+//        literal.setExponent(exponent);
     }
+
+    // Clear linked list
     public void zeroPolynomial() {
 
     }
