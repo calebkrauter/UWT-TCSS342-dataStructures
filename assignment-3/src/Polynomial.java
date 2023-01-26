@@ -21,32 +21,69 @@
 //      example 2: input-> [-> (5, 4) -> (2, 3) -> (5, 2) -> END]
 //      Output ->> (5x^4 + 2x^3 + 5x^2)
 
+
+import java.util.Iterator;
+
 // Question, should a default polynomial be positive?
 // ->> Perhaps deal with edge cases where adding or subtracting has a different result due to sign
 public class Polynomial {
     // Fields
     private LinkedList terms;
+//    private static int myExponent = 0;
+
 //    private Polynomial p = ;
     
     // Constructors
     public Polynomial() {
-
+        terms = new LinkedList();
     }
 
     // Methods
 
     // Inserts a term
     // -> Example input:
-    // currentPoly = [(null,null) ->] // Might just set Literal to null instead of each coefficient and exponent
-    // ->> Output = [(3, 4) -> (null, null) ->]
+    // currentPoly = [(null,null)] // Might just set Literal to null instead of each coefficient and exponent
+    // ->> Output = [(3, 4) -> (null, null)]
 
     // Question, what does the current polynomial (currentPoly) contain before any addition?
     // TODO - Test edge cases: Coefficient is zero, coefficient is 1, exponent is 0, coefficient is 1.
     public void insertTerm(int coefficient, int exponent) {
-//        Literal literal = new Literal();
-//        literal.setCoefficient(coefficient);
-//        literal.setExponent(exponent);
+        Iterator<ListNode> iterator = terms.iterator();
+        Literal literal = new Literal();
+
+        literal.setCoefficient(coefficient);
+        literal.setExponent(exponent);
+        ListNode listNode = new ListNode(literal);
+        Literal prevElement;
+        Iterator current = terms.zeroth();
+        Iterator previous = current;
+
+        // TODO - keep track of previous element.
+//        if (terms.zeroth().hasNext()) {
+//            prevElement = (Literal) ((LinkedList.Iterator) iterator).getNode().getElement();
+//            if (prevElement.getExponent() > exponent) {
+//                terms.insert(prevElement, (LinkedList.Iterator) previous);
+//            }
+//        } else {
+//            terms.insert(literal, (LinkedList.Iterator) previous);
+//
+//        }
+
+//        if (prevElement.getExponent() > exponent) {
+//            terms.insert(prevElement, (LinkedList.Iterator) previous);
+//        } else {
+            terms.insert(literal, (LinkedList.Iterator) previous);
+//        }
+
+
+
     }
+
+//    private void setMinimumExponent(int exponent) {
+//        myExponent = exponent;
+//    }
+//    private int getMinimumExponent()
+//
 
     // Clears linked list
     // -> Example input: [-> (3, 4) -> (6, 3) -> (2, 2) ->]
@@ -58,7 +95,7 @@ public class Polynomial {
     // eliminated (the pointer and Literal with its contents).
     // TODO - Check for edge cases.
     public void zeroPolynomial() {
-
+        terms = new LinkedList();
     }
 
     // Multiplies the polynomial coefficients by (-1)
@@ -126,6 +163,37 @@ public class Polynomial {
     //      '+' should not appear in front of polynomial, '-' should appear in front of polynomial depending on case, never a sign '-'/'+' after
     //      a polynomial, add spaces appropriately, no space before a polynomial, no space after polynomial.
     public String print() {
-        return "String";
+        Iterator thisIter = terms.iterator();
+        Literal lit;
+        String polyString = "";
+
+        if (!thisIter.hasNext()) {
+            return "0";
+        }
+        while (thisIter.hasNext()) {
+            lit = (Literal) thisIter.next();
+            polyString = polyString +
+                    lit.getCoefficient() + "x^" +
+                    lit.getExponent() + "+";
+        }
+        return polyString;
     }
+
+//    public String DumbPrint ()
+//    {
+//        Iterator thisIter = terms.iterator();
+//        Literal lit;
+//        String polyString;
+//
+//        if (!thisIter.hasNext()) {
+//            return “0”;
+//        }
+//        while (thisIter.hasNext()) {
+//            lit = (Literal) thisIter.next();
+//            polyString = polyString +
+//                    lit.getCoefficient() + “x^” +
+//                    lit.getExponent() + “+”;
+//        }
+//        return polyString;
+//    }
 }
