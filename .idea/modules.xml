@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/misc/LinkedListStuff/LinkedListStuff.iml" filepath="$PROJECT_DIR$/misc/LinkedListStuff/LinkedListStuff.iml" />
+      <module fileurl="file://$PROJECT_DIR$/assignment-3/assignment-3.iml" filepath="$PROJECT_DIR$/assignment-3/assignment-3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/assignment2ppp/assignment2ppp.iml" filepath="$PROJECT_DIR$/assignment2ppp/assignment2ppp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/misc/miscSort/miscSort.iml" filepath="$PROJECT_DIR$/misc/miscSort/miscSort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/uw-tcss342-data-structures.iml" filepath="$PROJECT_DIR$/uw-tcss342-data-structures.iml" />
+    </modules>
+  </component>
+</project>

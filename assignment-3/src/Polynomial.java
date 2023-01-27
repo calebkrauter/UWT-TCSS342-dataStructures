@@ -22,6 +22,7 @@
 //      Output ->> (5x^4 + 2x^3 + 5x^2)
 
 
+import java.util.Currency;
 import java.util.Iterator;
 
 // Question, should a default polynomial be positive?
@@ -36,6 +37,7 @@ public class Polynomial {
     // Constructors
     public Polynomial() {
         terms = new LinkedList();
+
     }
 
     // Methods
@@ -47,86 +49,46 @@ public class Polynomial {
 
     // Question, what does the current polynomial (currentPoly) contain before any addition?
     // TODO - Test edge cases: Coefficient is zero, coefficient is 1, exponent is 0, coefficient is 1.
+
     public void insertTerm(int coefficient, int exponent) {
-        Iterator<ListNode> currentAndAdvance = terms.iterator();
-        Literal literal = new Literal();
+        LinkedList.Iterator current = terms.iterator();
+        LinkedList.Iterator previous = terms.zeroth();
+        Literal currentLiteral = new Literal(coefficient, exponent);
 
-        literal.setCoefficient(coefficient);
-        literal.setExponent(exponent);
-
-        int previousExponent;
-
-        Iterator previous = terms.zeroth();
-        Iterator current = previous;
-//                    Literal currentLiteral = (Literal) ((LinkedList.Iterator) currentAndAdvance).getNode().getElement();
-        System.out.println( literal.getCoefficient()+ "x^"+ literal.getExponent()); // Print output of current node
-//        if (terms.zeroth().hasNext()) {
-
-        if (terms.iterator().hasNext()) { // check if the next node exists
-
-            terms.iterator().next(); // return current node and advance
-            Literal nextLiteral = (Literal) ((LinkedList.Iterator) currentAndAdvance).getNode().getElement(); // save literal at next
-            int nextExp = nextLiteral.getExponent(); // save exp at next to be compared with current exponenet to insert in order
-            System.out.println("Next exponenet " + nextExp + " Prev exponenet" + literal.getExponent());
-        }
+        if (terms.isEmpty()) {
+            terms.insert(currentLiteral, previous);
+            return;
         }
 
+        while (current.hasNext()) {
+            Literal previousLiteral = (Literal) current.getElement();
+            int previousExponent = previousLiteral.getExponent();
+            int previousCoefficient = previousLiteral.getCoefficient();
 
+            if (previousExponent < exponent) {
+                terms.insert(currentLiteral, previous);
+                break;
+            } else if (previousExponent > exponent) {
+                terms.insert(currentLiteral, current);
+                break;
+            } else if (previousExponent == exponent) {
+                if ((previousLiteral.getCoefficient() + coefficient) == 0) {
+                    terms.remove(previous);
+                    break;
+                } else {
+                currentLiteral.setCoefficient(previousCoefficient + coefficient);
+                }
+                break;
+            } else if (current.getNode().getNext() == null) {
+                terms.insert(currentLiteral, current);
+            } else {
+                current.next();
+                previous.next();
+            }
+        }
 
+    }
 
-//        }
-//        terms.insert(literal, (LinkedList.Iterator) terms.zeroth());
-//        terms.insert(literal, (LinkedList.Iterator) terms.zeroth().next());
-
-//        if (terms.zeroth().next() == null) { // If there is only a head
-//            terms.insert(literal, (LinkedList.Iterator) terms.zeroth()); // insert term at head
-//            current = terms.iterator();
-//        } if (terms.zeroth().hasNext()) {// Looking at the next spot, check for larger exponenet.
-//            Literal currentLiteral = (Literal) ((LinkedList.Iterator) currentAndAdvance).getNode().getElement();
-//            if (currentLiteral.getExponent() > exponent) {
-//               terms.insert(currentLiteral, (LinkedList.Iterator) current);
-//           }
-//        }
-
-        // We need to point at the next
-//        terms.iterator().next();
-
-//        if (terms.zeroth().hasNext()) { // check if first node is inserted after head, if it's not then insert.
-//            terms.insert(literal, (LinkedList.Iterator) terms.zeroth()); // insert current literal after head
-//            previousExponent = literal.getExponent();// save first exponent in previousExponenet
-//            if (previousExponent > exponent) {
-//                terms.insert(literal, (LinkedList.Iterator) terms.zeroth()); // insert current literal after head
-//            }
-//        } else {
-//            terms.insert(literal, (LinkedList.Iterator) head.next());
-//
-//        }
-
-        // TODO - keep track of previous element.
-//        if (terms.zeroth().hasNext()) {
-//            prevElement = (Literal) ((LinkedList.Iterator) iterator).getNode().getElement();
-//            if (prevElement.getExponent() > exponent) {
-//                terms.insert(prevElement, (LinkedList.Iterator) previous);
-//            }
-//        } else {
-//            terms.insert(literal, (LinkedList.Iterator) previous);
-//
-//        }
-
-//        if (prevElement.getExponent() > exponent) {
-//            terms.insert(prevElement, (LinkedList.Iterator) previous);
-//        } else {
-//        }
-
-
-
-
-
-//    private void setMinimumExponent(int exponent) {
-//        myExponent = exponent;
-//    }
-//    private int getMinimumExponent()
-//
 
     // Clears linked list
     // -> Example input: [-> (3, 4) -> (6, 3) -> (2, 2) ->]
@@ -159,8 +121,19 @@ public class Polynomial {
     // ->> Output: (7x^2 + 4x + 3)
     // TODO - Test edge cases: Has a not-alike term, negative exponent.
     public Polynomial plus(Polynomial polynomial) {
-        Polynomial value = null;
-        return value;
+        LinkedList.Iterator currentTerms = terms.iterator();
+        Literal currentLiteral = (Literal) currentTerms.getElement();
+        int currentExponent = currentLiteral.getExponent();
+
+        LinkedList.Iterator secondTerms = polynomial.terms.iterator();
+        Literal secondLiteral = (Literal) secondTerms.getElement();
+        int passedExp = secondLiteral.getExponent();
+        if (passedExp == currentExponent) {
+            Literal newLiteral = new Literal();
+            newLiteral.setCoefficient(currentLiteral.getCoefficient() + secondLiteral.getCoefficient());
+        }
+
+        return polynomial;
     }
 
     // Subtracts the terms algebraically from the current polynomial to
