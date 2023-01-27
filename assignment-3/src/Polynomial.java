@@ -48,15 +48,59 @@ public class Polynomial {
     // Question, what does the current polynomial (currentPoly) contain before any addition?
     // TODO - Test edge cases: Coefficient is zero, coefficient is 1, exponent is 0, coefficient is 1.
     public void insertTerm(int coefficient, int exponent) {
-        Iterator<ListNode> iterator = terms.iterator();
+        Iterator<ListNode> currentAndAdvance = terms.iterator();
         Literal literal = new Literal();
 
         literal.setCoefficient(coefficient);
         literal.setExponent(exponent);
-        ListNode listNode = new ListNode(literal);
-        Literal prevElement;
-        Iterator current = terms.zeroth();
-        Iterator previous = current;
+
+        int previousExponent;
+
+        Iterator previous = terms.zeroth();
+        Iterator current = previous;
+//                    Literal currentLiteral = (Literal) ((LinkedList.Iterator) currentAndAdvance).getNode().getElement();
+        System.out.println( literal.getCoefficient()+ "x^"+ literal.getExponent()); // Print output of current node
+//        if (terms.zeroth().hasNext()) {
+
+        if (terms.iterator().hasNext()) { // check if the next node exists
+
+            terms.iterator().next(); // return current node and advance
+            Literal nextLiteral = (Literal) ((LinkedList.Iterator) currentAndAdvance).getNode().getElement(); // save literal at next
+            int nextExp = nextLiteral.getExponent(); // save exp at next to be compared with current exponenet to insert in order
+            System.out.println("Next exponenet " + nextExp + " Prev exponenet" + literal.getExponent());
+        }
+        }
+
+
+
+
+//        }
+//        terms.insert(literal, (LinkedList.Iterator) terms.zeroth());
+//        terms.insert(literal, (LinkedList.Iterator) terms.zeroth().next());
+
+//        if (terms.zeroth().next() == null) { // If there is only a head
+//            terms.insert(literal, (LinkedList.Iterator) terms.zeroth()); // insert term at head
+//            current = terms.iterator();
+//        } if (terms.zeroth().hasNext()) {// Looking at the next spot, check for larger exponenet.
+//            Literal currentLiteral = (Literal) ((LinkedList.Iterator) currentAndAdvance).getNode().getElement();
+//            if (currentLiteral.getExponent() > exponent) {
+//               terms.insert(currentLiteral, (LinkedList.Iterator) current);
+//           }
+//        }
+
+        // We need to point at the next
+//        terms.iterator().next();
+
+//        if (terms.zeroth().hasNext()) { // check if first node is inserted after head, if it's not then insert.
+//            terms.insert(literal, (LinkedList.Iterator) terms.zeroth()); // insert current literal after head
+//            previousExponent = literal.getExponent();// save first exponent in previousExponenet
+//            if (previousExponent > exponent) {
+//                terms.insert(literal, (LinkedList.Iterator) terms.zeroth()); // insert current literal after head
+//            }
+//        } else {
+//            terms.insert(literal, (LinkedList.Iterator) head.next());
+//
+//        }
 
         // TODO - keep track of previous element.
 //        if (terms.zeroth().hasNext()) {
@@ -72,12 +116,11 @@ public class Polynomial {
 //        if (prevElement.getExponent() > exponent) {
 //            terms.insert(prevElement, (LinkedList.Iterator) previous);
 //        } else {
-            terms.insert(literal, (LinkedList.Iterator) previous);
 //        }
 
 
 
-    }
+
 
 //    private void setMinimumExponent(int exponent) {
 //        myExponent = exponent;
@@ -94,8 +137,9 @@ public class Polynomial {
     // to null assuming the node still contains a pointer. So Perhaps set the first node to null and everything else after it will be
     // eliminated (the pointer and Literal with its contents).
     // TODO - Check for edge cases.
+//            - Test to make sure it does what it should
     public void zeroPolynomial() {
-        terms = new LinkedList();
+        terms.makeEmpty();
     }
 
     // Multiplies the polynomial coefficients by (-1)
