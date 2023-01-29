@@ -47,6 +47,15 @@ public class PolyCalc {
         System.out.println ( "a = " + a.print() );
         a.insertTerm(2, 1);
         System.out.println ( "a = " + a.print() );
+
+        Polynomial b = new Polynomial();
+        b.zeroPolynomial();
+        b.insertTerm(4, 4);
+        System.out.println( "b = " + b.print() );
+        b.insertTerm(1, 2);
+        System.out.println( "b = " + b.print() );
+        b.plus(a);
+        System.out.println( "b = " + b.print() );
 //        */
 
         new PolyCalc();

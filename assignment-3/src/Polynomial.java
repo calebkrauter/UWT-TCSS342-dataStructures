@@ -75,7 +75,8 @@ public class Polynomial {
                 if ((previousLiteral.getCoefficient() + coefficient) == 0) {
                     terms.remove(previous);
                     break;
-                } else {
+                }
+                else {
                 currentLiteral.setCoefficient(previousCoefficient + coefficient);
                 }
                 break;
@@ -119,21 +120,40 @@ public class Polynomial {
     // currentPoly = (3x^2 + 2x + 1)
     // additive = (4x^2 + 2x + 2)
     // ->> Output: (7x^2 + 4x + 3)
-    // TODO - Test edge cases: Has a not-alike term, negative exponent.
+    // TODO - Test edge cases: Has a not-alike term, negative exponent, coefficient sum equals zero.
+    // TODO - add the  polynomial terms in order if the exponents are not equal.
     public Polynomial plus(Polynomial polynomial) {
-        LinkedList.Iterator currentTerms = terms.iterator();
-        Literal currentLiteral = (Literal) currentTerms.getElement();
-        int currentExponent = currentLiteral.getExponent();
+        LinkedList.Iterator current = terms.iterator();
+        LinkedList.Iterator previous = terms.zeroth();
+        // Make test polynomial and insert terms
+//        Polynomial test1 = new Polynomial();
+//        test1.insertTerm(4, 2);
+//        test1.insertTerm(2, 5);
+//        test1.insertTerm(3, 4);
 
-        LinkedList.Iterator secondTerms = polynomial.terms.iterator();
-        Literal secondLiteral = (Literal) secondTerms.getElement();
-        int passedExp = secondLiteral.getExponent();
-        if (passedExp == currentExponent) {
-            Literal newLiteral = new Literal();
-            newLiteral.setCoefficient(currentLiteral.getCoefficient() + secondLiteral.getCoefficient());
+
+        LinkedList.Iterator currentTerms = terms.iterator(); // Pointer for current term
+        Literal currentLiteral = (Literal) currentTerms.getElement(); // Current Literal term
+        int currentExponent = currentLiteral.getExponent(); // Current exponent
+
+        LinkedList.Iterator secondTerms = polynomial.terms.iterator(); // Second terms as iterated over
+        Literal secondLiteral = (Literal) secondTerms.getElement(); // Second literal term to be added.
+        int passedExp = secondLiteral.getExponent(); // Passed in exponent
+        Literal newLiteral = new Literal(); // Make new literal
+
+        // TODO - use a while loop and iterate over each term to add necessary terms.
+        while (current.hasNext()) {
+            if (passedExp == currentExponent) { // Compare exponents
+
+                newLiteral.setCoefficient(currentLiteral.getCoefficient() + secondLiteral.getCoefficient()); // Update literal term with new coefficient
+                break;
+            }
+            current.next();
+            previous.next();
         }
 
-        return polynomial;
+        polynomial.terms.insert(newLiteral, current);
+        return polynomial; // Return modified polynomial
     }
 
     // Subtracts the terms algebraically from the current polynomial to
