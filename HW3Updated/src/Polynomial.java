@@ -22,11 +22,15 @@
 //      Output ->> (5x^4 + 2x^3 + 5x^2)
 
 
+import java.util.Currency;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 // Question, should a default polynomial be positive?
 // ->> Perhaps deal with edge cases where adding or subtracting has a different result due to sign
 public class Polynomial {
     // Fields
-    private LinkedList terms;
+    private final LinkedList terms;
 //    private static int myExponent = 0;
 
 //    private Polynomial p = ;
@@ -48,21 +52,10 @@ public class Polynomial {
     // TODO - Test edge cases: Coefficient is zero, coefficient is 1, exponent is 0, coefficient is 1.
 
     public void insertTerm(int coefficient, int exponent) {
-       LinkedList.Iterator current = terms.iterator();
-       LinkedList.Iterator previous = terms.zeroth();
+        Literal literal = new Literal();
+//        Iterator current = terms.iterator();
+//        Iterator previous = terms.zeroth();
 
-       // Find the correct spot to insert,
-       if (current.hasNext() && current.getNode().getNext() != null) {
-           current.next();
-           previous.next();
-           System.out.println("find break point");
-           insertTerm(coefficient, exponent);
-       }
-//       if (current.getNode() == null) {
-           // Correct spot found to insert, create literal
-           Literal currentLiteral = new Literal(coefficient, exponent);
-           terms.insert(currentLiteral, previous);
-//       }
     }
 
 
@@ -77,7 +70,7 @@ public class Polynomial {
     // TODO - Check for edge cases.
 //            - Test to make sure it does what it should
     public void zeroPolynomial() {
-        terms.makeEmpty();
+//        terms.makeEmpty();
     }
 
     // Multiplies the polynomial coefficients by (-1)
@@ -98,36 +91,36 @@ public class Polynomial {
     // TODO - Test edge cases: Has a not-alike term, negative exponent, coefficient sum equals zero.
     // TODO - add the  polynomial terms in order if the exponents are not equal.
     public Polynomial plus(Polynomial polynomial) {
-        LinkedList.Iterator current = terms.iterator();
-        LinkedList.Iterator previous = terms.zeroth();
-        // Make test polynomial and insert terms
-//        Polynomial test1 = new Polynomial();
-//        test1.insertTerm(4, 2);
-//        test1.insertTerm(2, 5);
-//        test1.insertTerm(3, 4);
-
-
-        LinkedList.Iterator currentTerms = terms.iterator(); // Pointer for current term
-        Literal currentLiteral = (Literal) currentTerms.getElement(); // Current Literal term
-        int currentExponent = currentLiteral.getExponent(); // Current exponent
-
-        LinkedList.Iterator secondTerms = polynomial.terms.iterator(); // Second terms as iterated over
-        Literal secondLiteral = (Literal) secondTerms.getElement(); // Second literal term to be added.
-        int passedExp = secondLiteral.getExponent(); // Passed in exponent
-        Literal newLiteral = new Literal(); // Make new literal
-
-        // TODO - use a while loop and iterate over each term to add necessary terms.
-        while (current.hasNext()) {
-            if (passedExp == currentExponent) { // Compare exponents
-
-                newLiteral.setCoefficient(currentLiteral.getCoefficient() + secondLiteral.getCoefficient()); // Update literal term with new coefficient
-                break;
-            }
-            current.next();
-            previous.next();
-        }
-
-        polynomial.terms.insert(newLiteral, current);
+//        LinkedList.Iterator current = terms.iterator();
+//        LinkedList.Iterator previous = terms.zeroth();
+//        // Make test polynomial and insert terms
+////        Polynomial test1 = new Polynomial();
+////        test1.insertTerm(4, 2);
+////        test1.insertTerm(2, 5);
+////        test1.insertTerm(3, 4);
+//
+//
+//        LinkedList.Iterator currentTerms = terms.iterator(); // Pointer for current term
+//        Literal currentLiteral = (Literal) currentTerms.getElement(); // Current Literal term
+//        int currentExponent = currentLiteral.getExponent(); // Current exponent
+//
+//        LinkedList.Iterator secondTerms = polynomial.terms.iterator(); // Second terms as iterated over
+//        Literal secondLiteral = (Literal) secondTerms.getElement(); // Second literal term to be added.
+//        int passedExp = secondLiteral.getExponent(); // Passed in exponent
+//        Literal newLiteral = new Literal(); // Make new literal
+//
+//        // TODO - use a while loop and iterate over each term to add necessary terms.
+//        while (current.hasNext()) {
+//            if (passedExp == currentExponent) { // Compare exponents
+//
+//                newLiteral.setCoefficient(currentLiteral.getCoefficient() + secondLiteral.getCoefficient()); // Update literal term with new coefficient
+//                break;
+//            }
+//            current.next();
+//            previous.next();
+//        }
+//
+//        polynomial.terms.insert(newLiteral, current);
         return polynomial; // Return modified polynomial
     }
 
@@ -175,7 +168,7 @@ public class Polynomial {
     //      '+' should not appear in front of polynomial, '-' should appear in front of polynomial depending on case, never a sign '-'/'+' after
     //      a polynomial, add spaces appropriately, no space before a polynomial, no space after polynomial.
     public String print() {
-        LinkedList.Iterator thisIter = terms.iterator();
+        Iterator thisIter = terms.iterator();
         Literal lit;
         String polyString = "";
 
