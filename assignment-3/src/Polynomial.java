@@ -48,21 +48,60 @@ public class Polynomial {
     // TODO - Test edge cases: Coefficient is zero, coefficient is 1, exponent is 0, coefficient is 1.
 
     public void insertTerm(int coefficient, int exponent) {
-       LinkedList.Iterator current = terms.iterator();
-       LinkedList.Iterator previous = terms.zeroth();
+        // Don't add a term if it's coefficient is 0.
+        if (coefficient == 0) return;
 
-       // Find the correct spot to insert,
-       if (current.hasNext() && current.getNode().getNext() != null) {
-           current.next();
-           previous.next();
-           System.out.println("find break point");
-           insertTerm(coefficient, exponent);
-       }
-//       if (current.getNode() == null) {
-           // Correct spot found to insert, create literal
-           Literal currentLiteral = new Literal(coefficient, exponent);
-           terms.insert(currentLiteral, previous);
-//       }
+        LinkedList.Iterator firstIterator = terms.zeroth();
+        LinkedList.Iterator secondIterator = terms.iterator();
+        Literal introducedLiteral = new Literal(coefficient, exponent);
+
+        // Insert introducedLiteral when the list is empty.
+        if (terms.isEmpty()) {
+            terms.insert(introducedLiteral, firstIterator);
+            return;
+        }
+
+        // Check edge cases, locate where to insert term and insert introducedLiteral.
+        while (firstIterator.hasNext()) {
+            // Assign to currentElement the element that is within the node which is addressed by the secondIterator.
+            Literal currentElement = (Literal) secondIterator.getNode().getElement();
+            // Assign the exponent of the current element in the list to existingExponent.
+            int existingExponent = currentElement.getExponent();
+            // Assign the coefficient of the current element in the list to existingExponent.
+            int existingCoefficient = currentElement.getCoefficient();
+
+            // Compare exponents in the current and existing term. The existing term
+            // resides within the literal which is within the node which is within
+            // the list to insert in the descending correct order.
+            if (exponent > existingExponent) {
+                terms.insert(introducedLiteral, firstIterator);
+                return;
+                // In the case that the exponents are equal, add the "like terms".
+            } else if (exponent == existingExponent) {
+                // In the case that the sum of the coefficients of the
+                // "like terms" is zero, don't insert the newly introduced term.
+                if (coefficient + existingCoefficient == 0) {
+                    return;
+                    // Set the coefficient of the term pointed to by secondIterator equal to the sum of
+                    // the current coefficient plus the existing coefficient which resides within
+                    // the literal which is within the node which is within the list.
+                } else {
+                    currentElement.setCoefficient(coefficient + existingCoefficient);
+                }
+                // The program has iterated to the end of the list, meaning that the current
+                // term has an exponent smaller than any other exponent existing within a literal in the list.
+                // Insert term where the secondIterator is pointing too.
+            } else if (secondIterator.getNode().getNext() == null) {
+                terms.insert(introducedLiteral, secondIterator);
+                return;
+                // In the situation that no cases in the loop were met, advance and repeat.
+            } else {
+                firstIterator.next();
+                secondIterator.next();
+            }
+        }
+
+
     }
 
 

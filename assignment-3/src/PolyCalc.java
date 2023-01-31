@@ -58,7 +58,7 @@ public class PolyCalc {
 //        System.out.println( "b = " + b.print() );
 //        */
 
-        new PolyCalc();
+//        new PolyCalc();
     }
 
 }
