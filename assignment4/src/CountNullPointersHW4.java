@@ -1,3 +1,8 @@
+/**
+* @author Caleb Krauter
+* @version Jan, 31 2023
+*/
+
 public class CountNullPointersHW4 {
     /**
      * Counts null pointers in a given Binary Search Tree.
