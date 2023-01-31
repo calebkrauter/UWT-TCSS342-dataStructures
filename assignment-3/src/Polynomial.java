@@ -1,6 +1,7 @@
-
-// Look at dumb print
-
+/**
+ * @author Caleb Krauter
+ * @version Jan, 31 2023
+ */
 
 // TODO - PROJECT REQUIREMENTS
 //      Implement polynomial abstract data type.
@@ -21,23 +22,26 @@
 //      example 2: input-> [-> (5, 4) -> (2, 3) -> (5, 2) -> END]
 //      Output ->> (5x^4 + 2x^3 + 5x^2)
 
+/**
+ * Polynomial is an ADT implementation that operates on a linked list.
+ */
 
 // Question, should a default polynomial be positive?
 // ->> Perhaps deal with edge cases where adding or subtracting has a different result due to sign
 public class Polynomial {
-    // Fields
-    private LinkedList terms;
-//    private static int myExponent = 0;
 
-//    private Polynomial p = ;
-    
-    // Constructors
+    /**
+     * terms contains literals to be operated on.
+     */
+    private LinkedList terms;
+
+    /**
+     * Constructor
+     */
     public Polynomial() {
         terms = new LinkedList();
-
     }
 
-    // Methods
 
     // Inserts a term
     // -> Example input:
@@ -47,6 +51,11 @@ public class Polynomial {
     // Question, what does the current polynomial (currentPoly) contain before any addition?
     // TODO - Test edge cases: Coefficient is zero, coefficient is 1, exponent is 0, coefficient is 1.
 
+    /**
+     * A functino for inserting literals given a coefficient and exponent.
+     * @param coefficient
+     * @param exponent
+     */
     public void insertTerm(int coefficient, int exponent) {
         // Don't add a term if it's coefficient is 0.
         if (coefficient == 0) return;
@@ -108,24 +117,42 @@ public class Polynomial {
     // Clears linked list
     // -> Example input: [-> (3, 4) -> (6, 3) -> (2, 2) ->]
     // ->> Output = [-> (null, null) -> (null, null) -> (null, null)] // Might just set each Literal to null instead of each coefficient and exponent.
-
     // Question, when setting the first Literal or coefficient and exponent in the first Literal to null how does this effect the rest of the Linked List?
     // ->> My guess is that you can have a linked list full of literals that have null coefficients and exponents, this may be the same with setting the Literal
     // to null assuming the node still contains a pointer. So Perhaps set the first node to null and everything else after it will be
     // eliminated (the pointer and Literal with its contents).
     // TODO - Check for edge cases.
-//            - Test to make sure it does what it should
+    //      - Test to make sure it does what it should
+
+    /**
+     * Sets the polynomial to empty.
+     */
     public void zeroPolynomial() {
         terms.makeEmpty();
     }
-
     // Multiplies the polynomial coefficients by (-1)
     // -> Example input: (2x^2 + 2x + 1)
     // ->> Output: (-2x^2 + -2x + -1)
     // TODO - Test edge cases: A term contains a negative coefficient, coefficient is 1.
+
+    /**
+     * Negates the terms in the current linkedlist in the polynomial.
+     * @return polynomial that is negated
+     */
     public Polynomial negate() {
-        Polynomial value = null;
-        return value;
+        Polynomial polynomial = new Polynomial();
+        LinkedList.Iterator iterator = terms.zeroth();
+        while (iterator.getNode().getNext() != null) {
+
+            Literal element = (Literal) polynomial.terms.iterator().getNode().getElement();
+            int negatedValue = -1 * element.getCoefficient();
+
+            element.setCoefficient(negatedValue);
+            polynomial.insertTerm(element.getCoefficient(), element.getExponent());
+            iterator.next();
+        }
+
+        return polynomial;
     }
 
     // Adds the terms algebraically from the current polynomial to
@@ -136,50 +163,96 @@ public class Polynomial {
     // ->> Output: (7x^2 + 4x + 3)
     // TODO - Test edge cases: Has a not-alike term, negative exponent, coefficient sum equals zero.
     // TODO - add the  polynomial terms in order if the exponents are not equal.
+
+    /**
+     * Adds like terms and non-like terms.
+     * @param polynomial
+     * @return polynomial containing the combined sum of the polynomials.
+     */
     public Polynomial plus(Polynomial polynomial) {
-        LinkedList.Iterator current = terms.iterator();
-        LinkedList.Iterator previous = terms.zeroth();
-        // Make test polynomial and insert terms
-//        Polynomial test1 = new Polynomial();
-//        test1.insertTerm(4, 2);
-//        test1.insertTerm(2, 5);
-//        test1.insertTerm(3, 4);
+        Polynomial polynomialC = new Polynomial();
 
+        LinkedList.Iterator iteratorA = terms.zeroth();
+        LinkedList.Iterator iteratorB = polynomial.terms.zeroth();
+        LinkedList.Iterator iteratorC = polynomialC.terms.zeroth();
 
-        LinkedList.Iterator currentTerms = terms.iterator(); // Pointer for current term
-        Literal currentLiteral = (Literal) currentTerms.getElement(); // Current Literal term
-        int currentExponent = currentLiteral.getExponent(); // Current exponent
+        while (iteratorA.hasNext() || iteratorB.hasNext()) {
+            Literal termA = (Literal) terms.iterator().getNode().getElement();
+            Literal termB = (Literal) polynomial.terms.iterator().getNode().getElement();
 
-        LinkedList.Iterator secondTerms = polynomial.terms.iterator(); // Second terms as iterated over
-        Literal secondLiteral = (Literal) secondTerms.getElement(); // Second literal term to be added.
-        int passedExp = secondLiteral.getExponent(); // Passed in exponent
-        Literal newLiteral = new Literal(); // Make new literal
+            int currentCoefficientA = termA.getCoefficient();
+            int currentCoefficientB = termB.getCoefficient();
+            int currentExponentA = termA.getExponent();
+            int currentExponentB = termB.getExponent();
 
-        // TODO - use a while loop and iterate over each term to add necessary terms.
-        while (current.hasNext()) {
-            if (passedExp == currentExponent) { // Compare exponents
+            Literal newLiteral = new Literal(currentCoefficientA, currentExponentA);
 
-                newLiteral.setCoefficient(currentLiteral.getCoefficient() + secondLiteral.getCoefficient()); // Update literal term with new coefficient
+            // In the case that the exponents of two terms are equal, add the coefficients and make a new literal using the sum
+            // as the coefficient and the shared degree.
+            if (currentExponentA == currentExponentB && iteratorC.getNode().getNext() == null) {
+                // Inserts new term into new polynomial.
+                newLiteral.setCoefficient(currentCoefficientA + currentCoefficientB);
+                polynomialC.insertTerm(newLiteral.getCoefficient(), currentExponentB);
+//                iteratorC.next();
+                Literal test1 = (Literal) polynomialC.terms.iterator().getNode().getElement();
+                iteratorA.next();
+                iteratorB.next();
                 break;
+            } else if (iteratorC.getNode().getNext() != null) {
+                iteratorC.next();
+                break;
+            } else if (currentExponentA > currentExponentB) {
+                newLiteral.setCoefficient(currentCoefficientA);
+                newLiteral.setExponent(currentExponentA);
+                polynomialC.insertTerm(newLiteral.getCoefficient(), newLiteral.getExponent());
+                Literal test1 = (Literal) polynomialC.terms.iterator().getNode().getElement();
+                iteratorA.next();
+                iteratorC.next();
+                break;
+            } else if (currentExponentA < currentExponentB) {
+                // Expected: insert B and advance B, come across it again and insert
+                newLiteral.setCoefficient(currentCoefficientB);
+                newLiteral.setExponent(currentExponentB);
+                polynomialC.insertTerm(newLiteral.getCoefficient(), newLiteral.getExponent());
+                Literal test1 = (Literal) polynomialC.terms.iterator().getNode().getElement();
+                iteratorB.next();
+                iteratorC.next();
+                break;
+                // At end of
+            } else if (iteratorA.getNode().getNext() == null) {
+                newLiteral.setCoefficient(currentCoefficientB);
+                newLiteral.setExponent(currentExponentB);
+                polynomialC.insertTerm(newLiteral.getCoefficient(), newLiteral.getExponent());
+                break;
+            } else if (iteratorB.getNode().getNext() == null) {
+                newLiteral.setCoefficient(currentCoefficientA);
+                newLiteral.setExponent(currentExponentA);
+                polynomialC.insertTerm(newLiteral.getCoefficient(), newLiteral.getExponent());
+                break;
+            } else {
+                iteratorA.next();
+                iteratorB.next();
             }
-            current.next();
-            previous.next();
         }
-
-        polynomial.terms.insert(newLiteral, current);
-        return polynomial; // Return modified polynomial
+        return polynomialC; // Return modified polynomial
     }
-
     // Subtracts the terms algebraically from the current polynomial to
     // a polynomial passed as an argument.
     // -> Example input:
     // currentPoly = (7x^2 + 4x + 3)
     // subtracted polynomial = (4x^2 + 2x + 2)
     // ->> Output: (3x^2 + 2x + 1)
+
     // TODO - Test edge cases: Has a not-alike term, negative exponent.
+
+    /**
+     * Subtracts two polynomials.
+     * @param polynomial
+     * @return
+     */
     public Polynomial minus(Polynomial polynomial) {
-        Polynomial value = null;
-        return value;
+        Polynomial minusedPolynomial = negate().plus(polynomial);
+        return minusedPolynomial;
     }
 
     // Multiplies the terms of two polynomials together.
@@ -189,6 +262,7 @@ public class Polynomial {
     // multiplicative = (4x^3, + 2x^2 + 2x + 1)
     // ->> Output: (8x^3 + 4x^2 + 4x + 2)
     // TODO - Test edge cases: negative coefficient, negative exponent.
+
     // Review Scratch work -> Pseudo code for the algorithm.
     public Polynomial times(Polynomial polynomial) {
         Polynomial value = null;
@@ -201,23 +275,35 @@ public class Polynomial {
     // currentPoly = (4x^4 + 3x^2 + 2x)
     // ->> Output: (16x^3 + 6x + 2)
     // TODO - Test edge cases: Exponent equals 1, exponent equals 0, negative exponent,
+
     //      containing multiple non-sequential powers (like exponents: 4, 3, 1, not exponents: 4, 3, 2, 1)
+
+    /**
+     * Takes the derivative of a polynomial.
+     * @return polynomial.
+     */
     public Polynomial derivative() {
         Polynomial value = null;
         return value;
     }
-
     // Prints output of any given applied operation over polynomials to the console and to gui.
     // -> Example input: [-> (3,2) -> (4,1) -> (1,0) ->]
     // ->> Output "3x^2 + 4x + 1"
     // TODO - Test for edge cases: What if linked list contains null Literals, null nodes, null coefficient, null exponent,
     //      '+' should not appear in front of polynomial, '-' should appear in front of polynomial depending on case, never a sign '-'/'+' after
+
     //      a polynomial, add spaces appropriately, no space before a polynomial, no space after polynomial.
+
+    /**
+     * Prints out polynomials.
+     * @return
+     */
     public String print() {
         LinkedList.Iterator thisIter = terms.iterator();
         Literal lit;
         String polyString = "";
 
+        StringBuilder sb = new StringBuilder();
         if (!thisIter.hasNext()) {
             return "0";
         }
@@ -229,22 +315,4 @@ public class Polynomial {
         }
         return polyString;
     }
-
-//    public String DumbPrint ()
-//    {
-//        Iterator thisIter = terms.iterator();
-//        Literal lit;
-//        String polyString;
-//
-//        if (!thisIter.hasNext()) {
-//            return “0”;
-//        }
-//        while (thisIter.hasNext()) {
-//            lit = (Literal) thisIter.next();
-//            polyString = polyString +
-//                    lit.getCoefficient() + “x^” +
-//                    lit.getExponent() + “+”;
-//        }
-//        return polyString;
-//    }
 }
