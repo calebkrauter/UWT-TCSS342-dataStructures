@@ -229,7 +229,7 @@ public class DictionaryApp {
             totalTime += (finishTime - startTime);
 
             // if the dictionary was the AVL tree, then
-            // print out the most frequently occuring words
+            // print out the most frequently occurring words
             if (whichAlgorithm == useAVL) {
                 avlTree.PrintMostFrequent();
             }
