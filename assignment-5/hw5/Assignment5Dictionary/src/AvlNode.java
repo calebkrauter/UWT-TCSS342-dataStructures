@@ -4,7 +4,7 @@
 
 class AvlNode {
 
-    int myNodeCount = -1;
+    int myNodeCount = 0;
 
     // Constructors
     AvlNode( Comparable theElement ) {

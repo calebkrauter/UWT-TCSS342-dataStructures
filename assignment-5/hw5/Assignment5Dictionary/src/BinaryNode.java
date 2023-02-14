@@ -4,29 +4,35 @@
 
 class BinaryNode {
 
-    static int nodeCounter = 0;
+    static int myNodeCount = 0;
 
     // Constructors
     BinaryNode( Comparable theElement ) {
         this( theElement, null, null );
-        nodeCounter++;
+        myNodeCount++;
     }
 
     BinaryNode( Comparable theElement, BinaryNode lt, BinaryNode rt ) {
-        nodeCounter++;
+        myNodeCount++;
         element  = theElement;
         left     = lt;
         right    = rt;
     }
 
+
     // Method implemented by Caleb Krauter
     public void incrementNodeCounter() {
-        nodeCounter++;
+        setNodeCount(myNodeCount + 1);
+    }
+
+    // Method implemented by Caleb Krauter
+    public void setNodeCount(int nodeCount) {
+        myNodeCount = nodeCount;
     }
 
     // Method implemented by Caleb Krauter
     public int getNodeCount() {
-        return nodeCounter;
+        return myNodeCount;
     }
 
     // Friendly data; accessible by other package routines
