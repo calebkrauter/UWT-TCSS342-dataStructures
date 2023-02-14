@@ -286,140 +286,89 @@ public class AvlTree {
      * Print the most frequently occurring words in the tree,
      * along with their frequency.
      */
-//    public void PrintMostFrequent() {
-////        int i = 0;
-////        while (getMostFrequent(root)[i] != null) {
-////            System.out.println(getMostFrequent(root)[i].element.toString());
-////            i++;
-////        }
-////        for (AvlNode node: getMostFrequent(root)) {
-////            System.out.println(node.element.toString());
-////        }
-//
-//        getMostFrequent(root);
-//
-//
-//    }
-//    AvlNode[] arrayOfNodes = new AvlNode[arrayOfNodesLength];
-//
-//
+    public void PrintMostFrequent() {
+//        int i = 0;
+//        while (getMostFrequent(root)[i] != null) {
+//            System.out.println(getMostFrequent(root)[i].element.toString());
+//            i++;
+//        }
+//        for (AvlNode node: getMostFrequent(root)) {
+//            System.out.println(node.element.toString());
+//        }
+
+        getMostFrequent(root);
+
+
+    }
+    AvlNode[] arrayOfNodes = new AvlNode[arrayOfNodesLength];
+
+
+    public AvlNode[] getMostFrequent(AvlNode currentNode) {
+
+        // TODO - double check size,
+        ArrayList<AvlNode> arrayListOfNodes = new ArrayList<AvlNode>();
+
+        if (currentNode != null) {
+            if (arrayListOfNodes.isEmpty()) {
+                arrayListOfNodes.add(currentNode);
+            } else {
+                    System.out.println("enter");
+                    for (int index = 0; index < arrayOfNodesLength; index++) { // look at each index of arraylist
+                        if (currentNode.getNodeCount() > arrayListOfNodes.get(index).getNodeCount()) { // check if current-count > count at index
+                            arrayListOfNodes.add(index, currentNode); // add node
+                            break;
+                        } else if (index == arrayOfNodesLength - 1 && arrayListOfNodes.size() != arrayOfNodesLength) {
+                            arrayListOfNodes.add(currentNode); // add node in sorted order to end
+                        }
+                        // May not need the block below.
+//                    if (arrayOfNodes.size() > arrayOfNodesLength) { // If arraylist is larger than desired length then remove the end
+//                        arrayOfNodes.remove(arrayOfNodesLength + 1);
+//                    }
+                    // in the case that the count is less, increment and compare again
+//            System.out.println(currentNode.element.toString()); // Preorder traversal
+                }
+            }
+            if (arrayListOfNodes.size() > arrayOfNodesLength) {
+                arrayListOfNodes.remove(arrayListOfNodes.size() - 1);
+            }
+            getMostFrequent(currentNode.left);
+            getMostFrequent(currentNode.right);
+        }
+
+        // add to array and return
+        for (AvlNode node: arrayListOfNodes) {
+            int i = -1;
+            i++;
+//            arrayOfNodes[i] = node;
+//            System.out.println(arrayOfNodes[i].element.toString());
+            System.out.println(node.element.toString() + " " + node.getNodeCount());
+        }
+        return arrayOfNodes;
+
+    }
 //    public AvlNode[] getMostFrequent(AvlNode currentNode) {
 //
-//        // TODO - double check size,
-//        ArrayList<AvlNode> arrayListOfNodes = new ArrayList<AvlNode>();
 //
 //        if (currentNode != null) {
-//            if (arrayListOfNodes.isEmpty()) {
-//                arrayListOfNodes.add(currentNode);
-//            } else {
-//                    System.out.println("enter");
-//                    for (int index = 0; index < arrayOfNodesLength; index++) { // look at each index of arraylist
-//                        if (currentNode.getNodeCount() > arrayListOfNodes.get(index).getNodeCount()) { // check if current-count > count at index
-//                            arrayListOfNodes.add(index, currentNode); // add node
-//                            break;
-//                        } else if (index == arrayOfNodesLength - 1 && arrayListOfNodes.size() != arrayOfNodesLength) {
-//                            arrayListOfNodes.add(currentNode); // add node in sorted order to end
-//                        }
-//                        // May not need the block below.
-////                    if (arrayOfNodes.size() > arrayOfNodesLength) { // If arraylist is larger than desired length then remove the end
-////                        arrayOfNodes.remove(arrayOfNodesLength + 1);
-////                    }
-//                    // in the case that the count is less, increment and compare again
-////            System.out.println(currentNode.element.toString()); // Preorder traversal
+//
+//            if (arrayOfNodes[0] == null) {
+//                arrayOfNodes[0] = currentNode;
+//            }
+//            for (int i = 0; i < arrayOfNodesLength - 1; i++) {
+//                if (currentNode.getNodeCount() >= arrayOfNodes[i].getNodeCount()) { // Compare if current is superior to existing
+//                    AvlNode lesserNode = arrayOfNodes[i]; // swap
+//                    arrayOfNodes[i + 1] = lesserNode;
+//                    arrayOfNodes[i] = currentNode;
+//                    System.out.println(arrayOfNodes[i].element.toString());
 //                }
 //            }
-//            if (arrayListOfNodes.size() > arrayOfNodesLength) {
-//                arrayListOfNodes.remove(arrayListOfNodes.size() - 1);
-//            }
+////            System.out.println(currentNode.element.toString()); // Preorder traversal
 //            getMostFrequent(currentNode.left);
 //            getMostFrequent(currentNode.right);
 //        }
-//
-//        // add to array and return
-//        for (AvlNode node: arrayListOfNodes) {
-//            int i = -1;
-//            i++;
-////            arrayOfNodes[i] = node;
-////            System.out.println(arrayOfNodes[i].element.toString());
-//            System.out.println(node.element.toString() + " " + node.getNodeCount());
-//        }
 //        return arrayOfNodes;
-//
 //    }
-////    public AvlNode[] getMostFrequent(AvlNode currentNode) {
-////
-////
-////        if (currentNode != null) {
-////
-////            if (arrayOfNodes[0] == null) {
-////                arrayOfNodes[0] = currentNode;
-////            }
-////            for (int i = 0; i < arrayOfNodesLength - 1; i++) {
-////                if (currentNode.getNodeCount() >= arrayOfNodes[i].getNodeCount()) { // Compare if current is superior to existing
-////                    AvlNode lesserNode = arrayOfNodes[i]; // swap
-////                    arrayOfNodes[i + 1] = lesserNode;
-////                    arrayOfNodes[i] = currentNode;
-////                    System.out.println(arrayOfNodes[i].element.toString());
-////                }
-////            }
-//////            System.out.println(currentNode.element.toString()); // Preorder traversal
-////            getMostFrequent(currentNode.left);
-////            getMostFrequent(currentNode.right);
-////        }
-////        return arrayOfNodes;
-////    }
 
-    // LRoy
-    public void PrintMostFrequent() {
-        //ArrayList<AvlNode> avlNodeArrayList = new ArrayList<>();
-        ArrayList<AvlNode> mostFrequent = new ArrayList<>();
-        //GetMostFrequent method call on root and arraylist
-        getMostFrequent(root, mostFrequent);
-        System.out.println("The top 10 most frequent words are: \n");
-        //Loops through the arraylist printing out each word and it's frequency
-        int i = 1;
-        for (AvlNode node : mostFrequent) {
-            System.out.println(i + ":" + node.element + "-" + node.getNodeCount() + " times ");
-            i++;
-        }
-        //getMostFrequent(root);
-
-
-    }
-
-    public void getMostFrequent(AvlNode currentNode, ArrayList<AvlNode> arrayListOfNodes) {
-
-        // TODO - double check size,
-        //ArrayList<AvlNode> arrayListOfNodes = new ArrayList<AvlNode>();
-
-        int counter = 10;
-        if (currentNode == null) {
-            return;
-        }
-        if (arrayListOfNodes.isEmpty()) {
-            arrayListOfNodes.add(currentNode);
-        } else {
-            //System.out.println("enter");
-            for (int index = 0; index < arrayListOfNodes.size(); index++) { // look at each index of arraylist
-                if (currentNode.getNodeCount() > arrayListOfNodes.get(index).getNodeCount()) { // check if current-count > count at index
-                    arrayListOfNodes.add(index, currentNode); // add node
-                    break;
-                } else if (index == arrayListOfNodes.size() - 1 && arrayListOfNodes.size() != counter) {
-                    arrayListOfNodes.add(currentNode); // add node in sorted order to end
-                    break;
-                }
-
-            }
-        }
-        if (arrayListOfNodes.size() > counter) {
-            arrayListOfNodes.remove(arrayListOfNodes.size() - 1);
-        }
-
-        getMostFrequent(currentNode.left, arrayListOfNodes);
-        getMostFrequent(currentNode.right, arrayListOfNodes);
-
-
-    }
 
 
 
