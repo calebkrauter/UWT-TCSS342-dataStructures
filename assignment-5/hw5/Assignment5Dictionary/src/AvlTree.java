@@ -309,10 +309,7 @@ public class AvlTree {
                         arrayOfNodes.add(index, currentNode); // add node in sorted order to end
                         currentNode.incrementNodeCounter();
                     }
-                    // May not need the block below.
-//                    if (arrayOfNodes.size() > arrayOfNodesLength) { // If arraylist is larger than desired length then remove the end
-//                        arrayOfNodes.remove(arrayOfNodesLength + 1);
-//                    }
+
                 }// in the case that the count is less, increment and compare again
 //            System.out.println(currentNode.element.toString()); // Preorder traversal
             getMostFrequent(currentNode.left);
@@ -321,13 +318,17 @@ public class AvlTree {
 
         // for printing
         for (AvlNode node: arrayOfNodes) {
-            int i = -1;
-            i++;
-            System.out.println(node.element.toString() + " " + i);
+            System.out.println(node.element.toString() + " " + node.getNodeCount());
         }
 
     }
 
+
+
+    // May not need the block below. for the get most frequent method after the else if
+//                    if (arrayOfNodes.size() > arrayOfNodesLength) { // If arraylist is larger than desired length then remove the end
+//                        arrayOfNodes.remove(arrayOfNodesLength + 1);
+//                    }
     // a test program
     public static void test () {
         AvlTree avltree = new AvlTree();
