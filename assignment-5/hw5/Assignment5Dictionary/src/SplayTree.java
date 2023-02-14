@@ -294,11 +294,11 @@ public class SplayTree {
         System.out.println( "Checking... (no bad output means success)" );
 
         for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
-            t.insert( new Integer( i ) );
+            t.insert( new MyInteger( i ) );
         System.out.println( "Inserts complete" );
 
         for( int i = 1; i < NUMS; i+= 2 )
-            t.remove( new Integer( i ) );
+            t.remove( new MyInteger( i ) );
         System.out.println( "Removes complete" );
 
         if( NUMS < 40 )
@@ -308,11 +308,11 @@ public class SplayTree {
             System.out.println( "FindMin or FindMax error!" );
 
         for( int i = 2; i < NUMS; i+=2 )
-            if( ((Integer)t.find( new Integer( i ) )).intValue( ) != i )
+            if( ((Integer)t.find( new MyInteger( i ) )).intValue( ) != i )
                 System.out.println( "Error: find fails for " + i );
 
         for( int i = 1; i < NUMS; i+=2 )
-            if( t.find( new Integer( i ) )  != null )
+            if( t.find( new MyInteger( i ) )  != null )
                 System.out.println( "Error: Found deleted item " + i );
     }
 }

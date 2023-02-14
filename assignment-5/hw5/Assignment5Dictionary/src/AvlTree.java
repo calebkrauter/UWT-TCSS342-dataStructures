@@ -1,4 +1,6 @@
 import java.lang.Comparable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 // AvlTree class
 //
@@ -20,6 +22,9 @@ import java.lang.Comparable;
  * @author Mark Allen Weiss
  */
 public class AvlTree {
+
+    // My field
+    final int arrayOfNodesLength = 10;
     
     /** The tree root. */
     private AvlNode root;
@@ -131,6 +136,9 @@ public class AvlTree {
                     t = doubleWithRightChild( t );
         } else {
             ;  // Duplicate; do nothing
+            // Function call added by Caleb Krauter
+            t.incrementNodeCounter();
+
         }
         t.height = max( height( t.left ), height( t.right ) ) + 1;
         return t;
@@ -278,10 +286,48 @@ public class AvlTree {
      * along with their frequency.
      */
     public void PrintMostFrequent() {
-        System.out.println("PrintMostFrequent: Not implemented yet.");
+        getMostFrequent(root);
     }
-    
-    
+    public void getMostFrequent(AvlNode currentNode) {
+
+        // TODO - double check size,
+        ArrayList<AvlNode> arrayOfNodes = new ArrayList<AvlNode>();
+
+        if (currentNode != null) {
+            if (arrayOfNodes.isEmpty()) {
+                arrayOfNodes.add(currentNode);
+                currentNode.incrementNodeCounter();
+            }
+
+            if (!(arrayOfNodes.contains(currentNode))) // If it is not the case that the current node is contained in the list;
+                for (int index = 0; index < arrayOfNodesLength; index++) { // look at each index of arraylist
+                    if (currentNode.getNodeCount() > arrayOfNodes.get(index).getNodeCount()) { // check if current-count > count at index
+                        arrayOfNodes.add(index, currentNode); // add node in sorted order
+                        currentNode.incrementNodeCounter();
+                        break;
+                    } else if (index == arrayOfNodesLength - 1){
+                        arrayOfNodes.add(index, currentNode); // add node in sorted order to end
+                        currentNode.incrementNodeCounter();
+                    }
+                    // May not need the block below.
+//                    if (arrayOfNodes.size() > arrayOfNodesLength) { // If arraylist is larger than desired length then remove the end
+//                        arrayOfNodes.remove(arrayOfNodesLength + 1);
+//                    }
+                }// in the case that the count is less, increment and compare again
+//            System.out.println(currentNode.element.toString()); // Preorder traversal
+            getMostFrequent(currentNode.left);
+            getMostFrequent(currentNode.right);
+        }
+
+        // for printing
+        for (AvlNode node: arrayOfNodes) {
+            int i = -1;
+            i++;
+            System.out.println(node.element.toString() + " " + i);
+        }
+
+    }
+
     // a test program
     public static void test () {
         AvlTree avltree = new AvlTree();
@@ -302,7 +348,7 @@ public class AvlTree {
         System.out.println( "Checking... (no more output means success)" );
 
         for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
-            t.insert( new Integer( i ) );
+            t.insert( new MyInteger( i ) );
         if( NUMS < 40 )
             t.printTree( );
         if( ((Integer)(t.findMin( ))).intValue( ) != 1 ||
@@ -310,7 +356,7 @@ public class AvlTree {
             System.out.println( "FindMin or FindMax error!" );
 
         for( int i = 1; i < NUMS; i++ )
-             if( ((Integer)(t.find( new Integer( i ) ))).intValue( ) != i )
+             if( ((Integer)(t.find( new MyInteger( i ) ))).intValue( ) != i )
                  System.out.println( "Find error1!" );
     }
     

@@ -3,15 +3,30 @@
 // of package DataStructures
 
 class BinaryNode {
+
+    static int nodeCounter = 0;
+
     // Constructors
     BinaryNode( Comparable theElement ) {
         this( theElement, null, null );
+        nodeCounter++;
     }
 
     BinaryNode( Comparable theElement, BinaryNode lt, BinaryNode rt ) {
+        nodeCounter++;
         element  = theElement;
         left     = lt;
         right    = rt;
+    }
+
+    // Method implemented by Caleb Krauter
+    public void incrementNodeCounter() {
+        nodeCounter++;
+    }
+
+    // Method implemented by Caleb Krauter
+    public int getNodeCount() {
+        return nodeCounter;
     }
 
     // Friendly data; accessible by other package routines
