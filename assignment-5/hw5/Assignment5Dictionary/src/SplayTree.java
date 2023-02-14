@@ -65,6 +65,8 @@ public class SplayTree {
                 root.right = nullNode;
                 root = newNode;
             } else {
+                // Added by Caleb Krauter
+                newNode.incrementNodeCounter();
                 return;
             }
         }

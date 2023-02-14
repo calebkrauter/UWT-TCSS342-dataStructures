@@ -148,6 +148,8 @@ public class BinarySearchTree {
                 direction = 'r';
             } else {
                 // Duplicate; do nothing
+                // Increment added by Caleb Krauter
+                t.incrementNodeCounter();
                 return t;
             }
         }

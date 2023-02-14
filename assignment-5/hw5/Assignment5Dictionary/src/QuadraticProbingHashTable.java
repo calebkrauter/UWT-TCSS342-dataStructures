@@ -50,6 +50,9 @@ public class QuadraticProbingHashTable {
         // Rehash; see Section 5.5
         if( ++currentSize > array.length / 2 )
             rehash( );
+        
+        HashEntry hashEntry = new HashEntry(x);
+        hashEntry.incrementNodeCounter();
     }
 
     /**

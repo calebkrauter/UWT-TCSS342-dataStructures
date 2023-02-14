@@ -4,15 +4,16 @@
 
 class AvlNode {
 
-    static int nodeCounter = 0;
+    int myNodeCount = 0;
+
     // Constructors
     AvlNode( Comparable theElement ) {
         this( theElement, null, null );
-        nodeCounter++;
     }
 
     AvlNode( Comparable theElement, AvlNode lt, AvlNode rt ) {
-        nodeCounter++;
+        incrementNodeCounter();
+
         element  = theElement;
         left     = lt;
         right    = rt;
@@ -21,12 +22,17 @@ class AvlNode {
 
     // Method implemented by Caleb Krauter
     public void incrementNodeCounter() {
-        nodeCounter++;
+        setNodeCount(myNodeCount + 1);
+    }
+
+    // Method implemented by Caleb Krauter
+    public void setNodeCount(int nodeCount) {
+        myNodeCount = nodeCount;
     }
 
     // Method implemented by Caleb Krauter
     public int getNodeCount() {
-        return nodeCounter;
+        return myNodeCount;
     }
 
     // Friendly data; accessible by other package routines
