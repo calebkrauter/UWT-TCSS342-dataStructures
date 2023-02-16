@@ -21,11 +21,13 @@ import java.util.Arrays;
  * Implements an AVL tree.
  * Note that all "matching" is based on the compareTo method.
  * @author Mark Allen Weiss
+ * @author Caleb Krauter
  */
 public class AvlTree {
 
-    // My field
-    static final int arrayOfNodesLength = 10;
+    // Caleb Krauter contributed the field, numOfMostFrequentStrings
+    /** numOfFrequentStrings is the desired amount of the most frequent strings to be printed to the console. */
+    static final int numOfFrequentStrings = 10;
     
     /** The tree root. */
     private AvlNode root;
@@ -282,6 +284,7 @@ public class AvlTree {
         return rotateWithRightChild( k1 );
     }
 
+    // Caleb Krauter contributed the contents of PrintMostFrequent.
     /**
      * Print the most frequently occurring words in the tree,
      * along with their frequency.
@@ -289,91 +292,56 @@ public class AvlTree {
     public void PrintMostFrequent() {
 
         ArrayList<AvlNode> arrayListOfNodes = new ArrayList();
-        ArrayList<AvlNode> avl = getMostFrequent(root, arrayListOfNodes);
-        for (AvlNode node: avl) {
-            System.out.println(node.element.toString() + " Frequency " + node.getNodeCount());
+
+        for (AvlNode currentNode: getMostFrequent(root, arrayListOfNodes)) {
+            System.out.println(currentNode.element.toString() + " Frequency " + currentNode.getNodeCount());
         }
-
-//        getMostFrequent(root);
-
-
     }
 
-
+    // Caleb Krauter contributed the addition of getMostFrequent.
+    // numOfFrequentStrings is a class level field that is implemented at the top of
+    // the AvlTree class.
+    /**
+     * This function adds the most frequently accessed word(s) from the AvlTree using
+     * the current node as a way to access the current word as the tree is traversed.
+     * Any word should be added to the arraylist in the desired order depending on the frequency of each word.
+     * The ArrayList should not exceed the desired size which is set by the class field "numOfFrequentStrings".
+     * The ArrayList is returned to be printed by the "printMostFrequent" function.
+     * @param currentNode
+     * @param arrayListOfNodes
+     * @return
+     */
     public ArrayList<AvlNode> getMostFrequent(AvlNode currentNode, ArrayList<AvlNode> arrayListOfNodes) {
 
-        // TODO - double check size,
-//        ArrayList<AvlNode> arrayListOfNodes = new ArrayList<AvlNode>();
-
         if (currentNode != null) {
-            if (arrayListOfNodes.isEmpty()) {
-                arrayListOfNodes.add(currentNode);
-            } else {
-                int index;
-//                System.out.println("There is an item in the array list ");
-                for (index = 0;index < arrayListOfNodes.size(); index++) { // look at each index of arraylist
-                    System.out.println("Enter for loop");
+                int index = 0;
+
+                while ( index < arrayListOfNodes.size()) {
                     if (currentNode.getNodeCount() > arrayListOfNodes.get(index).getNodeCount()) { // check if current-count > count at index
-//                        System.out.println("Add item to Array List");
                         arrayListOfNodes.add(index, currentNode); // add node at current spot pushing over the existing node to the next spot
-//                        System.out.println(arrayListOfNodes.get(index).element.toString());
                         break;
                     }
+                    index++;
                 }
+
+                // Add current node to end of ArrayList and ensure ArrayList size meets the desired size requirement.
                 if (index == arrayListOfNodes.size()) {
-                    arrayListOfNodes.add(currentNode); // Add
+                    arrayListOfNodes.add(currentNode);
                 }
-                if (arrayListOfNodes.size() == arrayOfNodesLength + 1) {  // If arraylist is larger than desired length then remove the end
-//                        System.out.println("Array List is to large, remove the end at the current position");
-                    arrayListOfNodes.remove(arrayOfNodesLength);
+
+                // If arraylist is larger than desired size then remove the end
+                if (arrayListOfNodes.size() == numOfFrequentStrings + 1) {
+                    arrayListOfNodes.remove(numOfFrequentStrings);
                 }
-            }
+//            }
+
             // Traverse tree
                 getMostFrequent(currentNode.left, arrayListOfNodes);
                 getMostFrequent(currentNode.right, arrayListOfNodes);
             }
-
-        // Return array list instead and traverse that
-//        AvlNode[] arrayOfNodes = new AvlNode[arrayOfNodesLength];
-//        // add to array and return array containing the items
-//        for (AvlNode node: arrayListOfNodes) {
-//            int i = -1;
-//            i++;
-//            arrayOfNodes[i] = node;
-//        }
         return arrayListOfNodes;
-
     }
-
-
-    // Old version using Array - nonfunctional
-//    public AvlNode[] getMostFrequent(AvlNode currentNode) {
-//
-//
-//        if (currentNode != null) {
-//
-//            if (arrayOfNodes[0] == null) {
-//                arrayOfNodes[0] = currentNode;
-//            }
-//            for (int i = 0; i < arrayOfNodesLength - 1; i++) {
-//                if (currentNode.getNodeCount() >= arrayOfNodes[i].getNodeCount()) { // Compare if current is superior to existing
-//                    AvlNode lesserNode = arrayOfNodes[i]; // swap
-//                    arrayOfNodes[i + 1] = lesserNode;
-//                    arrayOfNodes[i] = currentNode;
-//                    System.out.println(arrayOfNodes[i].element.toString());
-//                }
-//            }
-////            System.out.println(currentNode.element.toString()); // Preorder traversal
-//            getMostFrequent(currentNode.left);
-//            getMostFrequent(currentNode.right);
-//        }
-//        return arrayOfNodes;
-//    }
-
-
-
-
-
+    
     // a test program
     public static void test () {
         AvlTree avltree = new AvlTree();
