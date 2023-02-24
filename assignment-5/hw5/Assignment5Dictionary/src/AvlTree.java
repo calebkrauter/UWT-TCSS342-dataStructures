@@ -294,7 +294,7 @@ public class AvlTree {
         ArrayList<AvlNode> arrayListOfNodes = new ArrayList();
 
         for (AvlNode currentNode: getMostFrequent(root, arrayListOfNodes)) {
-            System.out.println(currentNode.element.toString() + " Frequency " + currentNode.getNodeCount());
+            System.out.println(currentNode.element.toString() + "\t\tFrequency " + currentNode.getNodeCount());
         }
     }
 
@@ -317,8 +317,12 @@ public class AvlTree {
                 int index = 0;
 
                 while ( index < arrayListOfNodes.size()) {
-                    if (currentNode.getNodeCount() > arrayListOfNodes.get(index).getNodeCount()) { // check if current-count > count at index
-                        arrayListOfNodes.add(index, currentNode); // add node at current spot pushing over the existing node to the next spot
+
+                    // check if current-count > count at index
+                    if (currentNode.getNodeCount() > arrayListOfNodes.get(index).getNodeCount()) {
+
+                        // add node at current spot pushing over the existing node to the next spot
+                        arrayListOfNodes.add(index, currentNode);
                         break;
                     }
                     index++;
