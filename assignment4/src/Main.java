@@ -1,3 +1,4 @@
+// This code is contributed by Ankur Narain Verma
 // Java program to demonstrate
 
 // insert operation in binary
@@ -5,15 +6,16 @@
 // BST code provided by https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
 class BinarySearchTree {
 
-    /* Class containing left
-    and right child of current node
-    * and key value*/
+    /*
+     * Class containing left
+     * and right child of current node
+     * and key value
+     */
     class Node {
         int key;
         Node left, right;
 
-        public Node(int item)
-        {
+        public Node(int item) {
             key = item;
             left = right = null;
         }
@@ -23,20 +25,29 @@ class BinarySearchTree {
     Node root;
 
     // Constructor
-    BinarySearchTree() { root = null; }
+    BinarySearchTree() {
+        root = null;
+    }
 
-    BinarySearchTree(int value) { root = new Node(value); }
+    BinarySearchTree(int value) {
+        root = new Node(value);
+    }
 
     // This method mainly calls insertRec()
-    void insert(int key) { root = insertRec(root, key); }
+    void insert(int key) {
+        root = insertRec(root, key);
+    }
 
-    /* A recursive function to
-    insert a new key in BST */
-    Node insertRec(Node root, int key)
-    {
+    /*
+     * A recursive function to
+     * insert a new key in BST
+     */
+    Node insertRec(Node root, int key) {
 
-		/* If the tree is empty,
-		return a new node */
+        /*
+         * If the tree is empty,
+         * return a new node
+         */
         if (root == null) {
             root = new Node(key);
             return root;
@@ -53,12 +64,13 @@ class BinarySearchTree {
     }
 
     // This method mainly calls InorderRec()
-    void inorder() { inorderRec(root); }
+    void inorder() {
+        inorderRec(root);
+    }
 
     // A utility function to
     // do inorder traversal of BST
-    void inorderRec(Node root)
-    {
+    void inorderRec(Node root) {
         if (root != null) {
             inorderRec(root.left);
             System.out.println(root.key);
@@ -67,18 +79,19 @@ class BinarySearchTree {
     }
 
     // Driver Code
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         BinarySearchTree tree = new BinarySearchTree();
 
-		/* Let us create following BST
-			50
-		/	 \
-		30	 70
-		/ \ / \
-	20 40 60 80
-	            \
-	              89*/
+        /*
+         * Let us create following BST
+         * 50
+         * / \
+         * 30 70
+         * / \ / \
+         * 20 40 60 80
+         * \
+         * 89
+         */
 
         tree.insert(50);
         tree.insert(30);
@@ -96,6 +109,7 @@ class BinarySearchTree {
 
     /**
      * Counts null pointers in a given Binary Search Tree.
+     * 
      * @param root of the tree
      * @return sum of all null pointers.
      */
@@ -123,4 +137,3 @@ class BinarySearchTree {
     }
 
 }
-// This code is contributed by Ankur Narain Verma
